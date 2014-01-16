@@ -5,7 +5,7 @@ default: test
 test:
 	xctool -project stamp.xcodeproj/ -scheme stamp test
 
-build: 
+build:
 	mkdir -p target
 	xctool -project stamp.xcodeproj/ -scheme stamp CONFIGURATION_BUILD_DIR=target
 
