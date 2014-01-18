@@ -1,7 +1,8 @@
 #import "Stamper.h"
 
 @interface Stamper ()
-@property NSImage *image;
+@property (nonatomic) NSImage *image;
+@property (nonatomic) NSString *iconFile;
 @end
 
 @implementation Stamper
@@ -11,12 +12,8 @@
     self = [super init];
     if (self) {
         NSParameterAssert(file);
-        _image = [[NSImage alloc] initWithContentsOfFile:file];
-        NSAssert(_image, @"image is nil");
-
-        NSLog(@"initialized with %@", self.image);
+        _iconFile = file;
     }
-
     return self;
 }
 
@@ -25,7 +22,35 @@
     [self addTextUsingLayoutManager:text];
 }
 
-- (NSDictionary *)attributes
+- (BOOL)saveTo:(NSString *)target
+{
+    NSData *pngData = [[self bitmapRepresentation] representationUsingType:NSPNGFileType properties:nil];
+    return [pngData writeToFile:target atomically:YES];
+}
+
+#pragma mark private
+
+- (void)addTextUsingLayoutManager:(NSString *)text
+{
+    NSTextStorage *textStorage = [[NSTextStorage alloc] initWithString:text attributes:self.textAttributes];
+    NSLayoutManager *layoutManager = [[NSLayoutManager alloc] init];
+    NSTextContainer *textContainer = [[NSTextContainer alloc] initWithContainerSize:self.iconSize];
+
+    [layoutManager addTextContainer:textContainer];
+    [textStorage addLayoutManager:layoutManager];
+
+    NSRange glyphRange = [layoutManager glyphRangeForTextContainer:textContainer];
+    [self.image lockFocus];
+    [layoutManager drawGlyphsForGlyphRange:glyphRange atPoint:NSMakePoint(0, self.isRetina ? -10 : -5)];
+    [self.image unlockFocus];
+}
+
+- (NSFont *)font
+{
+    return [NSFont fontWithName:@"HelveticaNeue-Light" size:self.isRetina ? 26 : 13];
+}
+
+- (NSDictionary *)textAttributes
 {
     NSMutableParagraphStyle *paragraphStyle = [[NSParagraphStyle defaultParagraphStyle] mutableCopy];
     [paragraphStyle setAlignment:NSCenterTextAlignment];
@@ -34,69 +59,35 @@
             NSParagraphStyleAttributeName: paragraphStyle,
             NSFontAttributeName: [self font],
             NSForegroundColorAttributeName: [NSColor whiteColor],
-//       NSShadowAttributeName: [self shadow],
     };
 }
 
-- (void)addTextUsingLayoutManager:(NSString *)text
+- (BOOL)isRetina
 {
-    NSTextStorage *textStorage = [[NSTextStorage alloc] initWithString:text attributes:self.attributes];
-    NSLayoutManager *layoutManager = [[NSLayoutManager alloc] init];
-    NSTextContainer *textContainer = [[NSTextContainer alloc] initWithContainerSize:NSMakeSize(self.image.size.width,
-            self.image.size.height)];
-
-    [layoutManager addTextContainer:textContainer];
-    [textStorage addLayoutManager:layoutManager];
-
-    NSRange glyphRange = [layoutManager glyphRangeForTextContainer:textContainer];
-
-
-    NSImage *textImage = [[NSImage alloc] initWithSize:self.image.size];
-
-    [textImage lockFocus];
-    [[NSColor clearColor] setFill];
-    CGContextFillRect([[NSGraphicsContext currentContext] graphicsPort], CGRectMake(0, 0, textImage.size.width, textImage.size.height));
-    [layoutManager drawGlyphsForGlyphRange:glyphRange atPoint:NSMakePoint(0, -5)];
-    [textImage unlockFocus];
-
-    [self.image lockFocus];
-    [textImage drawAtPoint:NSZeroPoint fromRect:NSZeroRect operation:NSCompositeSourceOver fraction:1.0];
-    [self.image unlockFocus];
-
+    return self.iconSize.height > 60;
 }
 
-- (NSFont *)font
+- (NSSize)iconSize
 {
-    return [NSFont fontWithName:@"HelveticaNeue-Light" size:12.0];
+    return self.image.size;
 }
 
-- (NSShadow *)shadow
+- (NSImage *)image
 {
-    NSShadow *shadow = [[NSShadow alloc] init];
-    shadow.shadowOffset = NSMakeSize(0, -8);
-    shadow.shadowBlurRadius = 0.5;
-    shadow.shadowColor = [NSColor colorWithCalibratedWhite:1 alpha:0.55];
-    return shadow;
+    if (!_image) {
+        _image = [[NSImage alloc] initWithData:[NSData dataWithContentsOfFile:self.iconFile]];
+        NSAssert(_image, @"image could not be loaded from %@", self.iconFile);
+    }
+    return _image;
 }
 
-
-- (BOOL)saveTo:(NSString *)target
-{
-    NSData *pngData = [[self imageRep] representationUsingType:NSPNGFileType properties:nil];
-    return [pngData writeToFile:target atomically:YES];
-}
-
-#pragma mark private
-
-- (NSBitmapImageRep *)imageRep
+- (NSBitmapImageRep *)bitmapRepresentation
 {
     CGImageRef cgRef = [self.image CGImageForProposedRect:NULL
                                                   context:nil
                                                     hints:nil];
 
-    NSBitmapImageRep *bitmapImageRep = [[NSBitmapImageRep alloc] initWithCGImage:cgRef];
-    [bitmapImageRep setSize:[self.image size]];
-    return bitmapImageRep;
+    return [[NSBitmapImageRep alloc] initWithCGImage:cgRef];
 }
 
 @end
