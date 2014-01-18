@@ -50,15 +50,26 @@
     return [NSFont fontWithName:@"HelveticaNeue-Light" size:self.isRetina ? 26 : 13];
 }
 
+- (NSShadow *)textShadow
+{
+    NSShadow *shadow = [[NSShadow alloc] init];
+    shadow.shadowOffset = NSMakeSize(1.5, 1);
+    shadow.shadowBlurRadius = 0.2;
+    shadow.shadowColor = [NSColor controlDarkShadowColor];
+    return shadow;
+}
+
 - (NSDictionary *)textAttributes
 {
     NSMutableParagraphStyle *paragraphStyle = [[NSParagraphStyle defaultParagraphStyle] mutableCopy];
-    [paragraphStyle setAlignment:NSCenterTextAlignment];
+    paragraphStyle.alignment = NSCenterTextAlignment;
+    paragraphStyle.lineBreakMode = NSLineBreakByCharWrapping;
 
     return @{
-            NSParagraphStyleAttributeName: paragraphStyle,
-            NSFontAttributeName: [self font],
-            NSForegroundColorAttributeName: [NSColor whiteColor],
+        NSParagraphStyleAttributeName: paragraphStyle,
+        NSFontAttributeName: [self font],
+        NSForegroundColorAttributeName: [NSColor whiteColor],
+        NSShadowAttributeName: [self textShadow],
     };
 }
 
