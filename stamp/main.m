@@ -17,7 +17,7 @@ int main(int argc, const char * argv[])
                 return -1;
             }
         } else {
-            fprintf(stderr, "Usage: stamper [input] [output] [text]\n");
+            fprintf(stderr, "Usage: stamp [input] [output] [text]\n");
             return -1;
         }
     }
