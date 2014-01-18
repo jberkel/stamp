@@ -1,5 +1,7 @@
 # stamp
 
+[![Build Status](https://travis-ci.org/jberkel/stamp.png?branch=master)](https://travis-ci.org/jberkel/stamp)
+
 Small OSX command line tool to create "stamped" versions of iOS app icons, e.g. to add build numbers / shas.
 
     $ brew install xctool
