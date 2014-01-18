@@ -41,13 +41,13 @@
 
     NSRange glyphRange = [layoutManager glyphRangeForTextContainer:textContainer];
     [self.image lockFocus];
-    [layoutManager drawGlyphsForGlyphRange:glyphRange atPoint:NSMakePoint(0, self.isRetina ? -10 : -5)];
+    [layoutManager drawGlyphsForGlyphRange:glyphRange atPoint:NSMakePoint(0, (self.font.pointSize / 2.0) * -1)];
     [self.image unlockFocus];
 }
 
 - (NSFont *)font
 {
-    return [NSFont fontWithName:@"HelveticaNeue-Light" size:self.isRetina ? 26 : 13];
+    return [NSFont fontWithName:@"HelveticaNeue-Light" size:self.isRetina ? 24 : 12];
 }
 
 - (NSShadow *)textShadow
