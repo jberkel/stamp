@@ -6,4 +6,7 @@ Small OSX command line tool to create "stamped" versions of iOS app icons, e.g. 
 
     $ brew install xctool
     $ make build
-    $ target/stamp icon.png output.png sometext
+    $ target/stamp icon.png output.png stamp!
+
+  * ![icon](images/Icon.png)
+  * ![stamped](images/stamped_Icon.png)
