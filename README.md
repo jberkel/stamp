@@ -9,4 +9,4 @@ Small OSX command line tool to create "stamped" versions of iOS app icons, e.g. 
     $ target/stamp icon.png output.png stamp!
 
   * ![icon](https://github.com/jberkel/stamp/wiki/images/Icon.png)
-  * ![stamped](https://github.com/jberkel/stamp/wiki/images/stamped_Icon.png)
+  * ![stamped](https://github.com/jberkel/stamp/wiki/images/stamped-Icon.png)
