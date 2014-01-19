@@ -47,7 +47,7 @@
 
 - (NSFont *)font
 {
-    return [NSFont fontWithName:@"HelveticaNeue-Light" size:self.isRetina ? 24 : 12];
+    return [NSFont fontWithName:@"HelveticaNeue-Light" size:self.iconSize.height / 5.0];
 }
 
 - (NSShadow *)textShadow
@@ -71,11 +71,6 @@
         NSForegroundColorAttributeName: [NSColor whiteColor],
         NSShadowAttributeName: [self textShadow],
     };
-}
-
-- (BOOL)isRetina
-{
-    return self.iconSize.height > 60;
 }
 
 - (NSSize)iconSize
