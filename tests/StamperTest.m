@@ -23,8 +23,12 @@
 
 - (void)testAddTextToImage
 {
-    [self.subject addText:@"Testing"];
-    XCTAssertTrue([self.subject saveTo:self.target], @"saveTo should return");
+    XCTAssertTrue([self.subject addText:@"Testing"]);
+}
+
+- (void)testAddingMoreTestWhichCanFitReturnsFalse
+{
+    XCTAssertFalse([self.subject addText:@"Testing abcdefghijklmno qrstuvxyzdsa 123456789"]);
 }
 
 - (void)testSaveToShouldReturnTrueIfFailedSavedSuccessfully

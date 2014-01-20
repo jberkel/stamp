@@ -7,7 +7,7 @@
 
 @implementation Stamper
 
-- (id)initWithFile:(NSString *)file
+- (instancetype)initWithFile:(NSString *)file
 {
     self = [super init];
     if (self) {
@@ -17,9 +17,9 @@
     return self;
 }
 
-- (void)addText:(NSString *)text
+- (BOOL)addText:(NSString *)text
 {
-    [self addTextUsingLayoutManager:text];
+    return [self addTextUsingLayoutManager:text];
 }
 
 - (BOOL)saveTo:(NSString *)target
@@ -30,24 +30,81 @@
 
 #pragma mark private
 
-- (void)addTextUsingLayoutManager:(NSString *)text
+- (BOOL)addTextUsingLayoutManager:(NSString *)text
 {
     NSTextStorage *textStorage = [[NSTextStorage alloc] initWithString:text attributes:self.textAttributes];
     NSLayoutManager *layoutManager = [[NSLayoutManager alloc] init];
-    NSTextContainer *textContainer = [[NSTextContainer alloc] initWithContainerSize:self.iconSize];
+    NSSize containerSize = NSMakeSize(self.iconSize.width, self.iconSize.height);
+    NSTextContainer *textContainer = [[NSTextContainer alloc] initWithContainerSize:containerSize];
 
     [layoutManager addTextContainer:textContainer];
     [textStorage addLayoutManager:layoutManager];
 
-    NSRange glyphRange = [layoutManager glyphRangeForTextContainer:textContainer];
-    [self.image lockFocus];
-    [layoutManager drawGlyphsForGlyphRange:glyphRange atPoint:NSMakePoint(0, (self.font.pointSize / 2.0) * -1)];
-    [self.image unlockFocus];
+    NSRange glyphRange = [self adjustFontSize:layoutManager
+                                 forMaxHeight:(self.iconSize.height * (1/3.0))
+                                  textStorage:textStorage
+                                textContainer:textContainer
+                                         font:self.font];
+
+    if (glyphRange.length > 0) {
+        [self.image lockFocusFlipped:YES];
+        NSRect usedRect = [layoutManager usedRectForTextContainer:textContainer];
+        NSPoint point = NSMakePoint(0, self.iconSize.height - usedRect.size.height - self.bottomPadding);
+        [layoutManager drawGlyphsForGlyphRange:glyphRange atPoint:point];
+        [self.image unlockFocus];
+        return YES;
+    } else {
+        return NO;
+    }
+}
+
+- (CGFloat)bottomPadding
+{
+    return self.iconSize.width / 24.0;
+}
+
+- (NSRange)adjustFontSize:(NSLayoutManager *)layoutManager
+             forMaxHeight:(CGFloat)maxHeight
+               textStorage:(NSTextStorage *)textStorage
+             textContainer:(NSTextContainer *)textContainer
+                      font:(NSFont *)font
+{
+    [textStorage setFont:font];
+    NSRange renderedRange = [layoutManager glyphRangeForTextContainer:textContainer];
+    NSRect  usedRect = [layoutManager usedRectForTextContainer:textContainer];
+    NSUInteger numGlyphs = [layoutManager numberOfGlyphs];
+
+    if (usedRect.size.height <= maxHeight && renderedRange.length == numGlyphs) {
+        return renderedRange;
+    } else {
+        CGFloat newPointSize = font.pointSize - 0.1;
+        /*
+        NSLog(@"decreasing font size to %f, "
+                "usedRect: %@ "
+                "maxHeight: %f "
+                "renderedRange: (%lu/%lu)", newPointSize,
+                NSStringFromRect(usedRect),
+                maxHeight,
+                renderedRange.length,
+                numGlyphs);
+                */
+        CGFloat minPointSize = MAX(8, self.iconSize.height / 10.0);
+
+        if (newPointSize >= minPointSize) {
+            return [self adjustFontSize:layoutManager
+                           forMaxHeight:maxHeight
+                            textStorage:textStorage
+                          textContainer:textContainer
+                                   font:[NSFont fontWithName:font.fontName size:newPointSize]];
+        } else {
+            return NSMakeRange(0, 0);
+        }
+    }
 }
 
 - (NSFont *)font
 {
-    return [NSFont fontWithName:@"HelveticaNeue-Light" size:self.iconSize.height / 5.0];
+    return [NSFont fontWithName:@"HelveticaNeue-Light" size:50];
 }
 
 - (NSShadow *)textShadow
@@ -63,7 +120,7 @@
 {
     NSMutableParagraphStyle *paragraphStyle = [[NSParagraphStyle defaultParagraphStyle] mutableCopy];
     paragraphStyle.alignment = NSCenterTextAlignment;
-    paragraphStyle.lineBreakMode = NSLineBreakByCharWrapping;
+    paragraphStyle.lineBreakMode = NSLineBreakByWordWrapping;
 
     return @{
         NSParagraphStyleAttributeName: paragraphStyle,
