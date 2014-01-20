@@ -104,7 +104,7 @@
 
 - (NSFont *)font
 {
-    return [NSFont fontWithName:@"HelveticaNeue-Light" size:50];
+    return [NSFont fontWithName:@"HelveticaNeue-Light" size:self.iconSize.height / 4.0];
 }
 
 - (NSShadow *)textShadow
