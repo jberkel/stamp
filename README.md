@@ -7,7 +7,7 @@ This is useful when distributing apps as part of a Continous Integration build. 
 existing solutions (e.g. [1][]) have the drawback that they often use external tools like imagemagick which need
 to be installed on the build machines.
 
-The advantage of `stamp` is that it has *absolutely no* external dependencies and a small footprint (~20 k), so it
+The advantage of `stamp` is that it has *absolutely no* external dependencies and a small footprint (~50 k), so it
 can be included as part of your repository if you wish.
 
 Additionally it makes uses of [TextKit][] which means high quality font rendering and advanced text layouting
