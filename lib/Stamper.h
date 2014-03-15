@@ -1,5 +1,8 @@
 @interface Stamper : NSObject
 
+@property (nonatomic, readwrite) NSColor  *textColor;
+@property (nonatomic, readwrite) NSShadow *textShadow;
+
 - (instancetype)init __attribute__((unavailable("init not available ")));
 - (instancetype)initWithFile:(NSString *)file;
 

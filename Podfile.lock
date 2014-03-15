@@ -1,10 +1,13 @@
 PODS:
   - BRLOptionParser (0.3.0)
+  - HexColors (2.2.1)
 
 DEPENDENCIES:
   - BRLOptionParser (~> 0.3.0)
+  - HexColors (~> 2.2.1)
 
 SPEC CHECKSUMS:
   BRLOptionParser: e034c1be1a1515e9b22e752eacb8edd9abb0df4d
+  HexColors: 3a68db077cd6572a8f7d4aa1add284dd2436a934
 
 COCOAPODS: 0.29.0

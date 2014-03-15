@@ -13,6 +13,8 @@
     if (self) {
         NSParameterAssert(file);
         _iconFile = file;
+        _textShadow = [self defaultTextShadow];
+        _textColor  = [NSColor whiteColor];
     }
     return self;
 }
@@ -107,7 +109,7 @@
     return [NSFont fontWithName:@"HelveticaNeue-Light" size:self.iconSize.height / 4.0];
 }
 
-- (NSShadow *)textShadow
+- (NSShadow *)defaultTextShadow
 {
     NSShadow *shadow = [[NSShadow alloc] init];
     shadow.shadowOffset = NSMakeSize(1.5, 1);
@@ -121,13 +123,16 @@
     NSMutableParagraphStyle *paragraphStyle = [[NSParagraphStyle defaultParagraphStyle] mutableCopy];
     paragraphStyle.alignment = NSCenterTextAlignment;
     paragraphStyle.lineBreakMode = NSLineBreakByWordWrapping;
-
-    return @{
+    NSMutableDictionary *attrs = @{
         NSParagraphStyleAttributeName: paragraphStyle,
         NSFontAttributeName: [self font],
-        NSForegroundColorAttributeName: [NSColor whiteColor],
-        NSShadowAttributeName: [self textShadow],
-    };
+        NSForegroundColorAttributeName: self.textColor ?: [NSColor whiteColor],
+    }.mutableCopy;
+
+    if (self.textShadow) {
+        attrs[NSShadowAttributeName] = self.textShadow;
+    }
+    return attrs;
 }
 
 - (NSSize)iconSize
