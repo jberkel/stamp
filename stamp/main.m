@@ -12,9 +12,14 @@ int main(int argc, const char * argv[])
         BOOL noShadow;
 
         [parser setBanner:@"usage: %s", argv[0]];
-        [parser addOption:"input"  flag:0 description:@"input file"  argument:&input];
-        [parser addOption:"output" flag:0 description:@"output file" argument:&output];
+        [parser addOption:"input"  flag:0 description:@"input png file"  argument:&input];
+        [parser addOption:"output" flag:0 description:@"output png file" argument:&output];
         [parser addOption:"text"   flag:0 description:@"text"        argument:&text];
+        __weak typeof(parser) weakParser = parser;
+        [parser addOption:"help" flag:'h' description:nil block:^{
+            fprintf(stderr, "%s", [[weakParser description] UTF8String]);
+            exit(EXIT_SUCCESS);
+        }];
 
         [parser addOption:"color"
                      flag:0 description:@"text color   [rgb|rrggbb]"
