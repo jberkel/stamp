@@ -22,11 +22,12 @@ Install [xctool][], e.g.
 
 Build
 
+    $ pod install
     $ make build
 
 Run
 
-    $ target/stamp icon.png output.png stamp!
+    $ target/stamp --input icon.png --output output.png --text stamp!
 
 before <img src="https://github.com/jberkel/stamp/wiki/images/Icon.png" style="vertical-align: middle;"> 
 after <img src="https://github.com/jberkel/stamp/wiki/images/stamped-Icon.png" style="vertical-align: middle;"/>

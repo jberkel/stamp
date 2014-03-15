@@ -1,4 +1,4 @@
-PROJECT = stamp.xcodeproj
+WORKSPACE = stamp.xcworkspace
 SCHEME = stamp
 TARGET = target
 
@@ -15,7 +15,7 @@ default: test
 test: unit integration
 
 unit:
-	xctool -project $(PROJECT) -scheme $(SCHEME) test
+	xctool -workspace $(WORKSPACE) -scheme $(SCHEME) test
 
 integration: run
 	file $(TEST_OUT)    | grep '60 x 60'
@@ -23,11 +23,12 @@ integration: run
 
 build:
 	mkdir -p $(TARGET)
-	xctool -project $(PROJECT) -scheme $(SCHEME) CONFIGURATION_BUILD_DIR=$(TARGET)
+	xctool -workspace $(WORKSPACE) -scheme $(SCHEME) DSTROOT=$(TARGET) DEPLOYMENT_LOCATION=YES INSTALL_PATH=/
 
 clean:
 	rm -rf $(TARGET)
+	xctool -workspace $(WORKSPACE) -scheme $(SCHEME) clean
 
 run: build
-	$(STAMP) $(TEST_ICON) $(TEST_OUT) $(SHA)
-	$(STAMP) $(TEST_ICON_2X) $(TEST_OUT_2X) $(SHA)
+	$(STAMP) --input $(TEST_ICON)    --output $(TEST_OUT)    --text $(SHA)
+	$(STAMP) --input $(TEST_ICON_2X) --output $(TEST_OUT_2X) --text $(SHA)

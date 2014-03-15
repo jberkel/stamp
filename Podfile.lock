@@ -1,0 +1,10 @@
+PODS:
+  - BRLOptionParser (0.3.0)
+
+DEPENDENCIES:
+  - BRLOptionParser (~> 0.3.0)
+
+SPEC CHECKSUMS:
+  BRLOptionParser: e034c1be1a1515e9b22e752eacb8edd9abb0df4d
+
+COCOAPODS: 0.29.0
