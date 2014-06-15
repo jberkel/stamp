@@ -32,6 +32,10 @@ Run
 before <img src="https://github.com/jberkel/stamp/wiki/images/Icon.png" style="vertical-align: middle;"> 
 after <img src="https://github.com/jberkel/stamp/wiki/images/stamped-Icon.png" style="vertical-align: middle;"/>
 
+If you like to live on the edge (aka swift), check out [robb][]'s port [swamp][].
+
 [1]: http://www.merowing.info/2013/03/overlaying-application-version-on-top-of-your-icon/
 [TextKit]: https://developer.apple.com/library/ios/documentation/StringsTextFonts/Conceptual/TextAndWebiPhoneOS/CustomTextProcessing/CustomTextProcessing.html
 [xctool]: https://github.com/facebook/xctool
+[swamp]: https://github.com/robb/swamp
+[robb]: https://github.com/robb
