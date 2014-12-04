@@ -292,6 +292,7 @@
 		19A170BB229262F62F11F0F8 /* Project object */ = {
 			isa = PBXProject;
 			attributes = {
+				LastUpgradeCheck = 0610;
 				ORGANIZATIONNAME = "___FULLUSERNAME___";
 				TargetAttributes = {
 					3DA56E88188827EE005BB08D = {
@@ -309,8 +310,6 @@
 			mainGroup = 19A17079BDB5CA25A2C6B72D;
 			productRefGroup = 19A1746FEA5F519D82AF44CE /* Products */;
 			projectDirPath = "";
-			projectReferences = (
-			);
 			projectRoot = "";
 			targets = (
 				19A17B5D659587E4AB03CC23 /* stamp */,
@@ -507,6 +506,7 @@
 		3DA56E97188827EE005BB08D /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				COMBINE_HIDPI_IMAGES = YES;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(DEVELOPER_FRAMEWORKS_DIR)",
 					"$(inherited)",
@@ -522,6 +522,7 @@
 		3DA56E98188827EE005BB08D /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				COMBINE_HIDPI_IMAGES = YES;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(DEVELOPER_FRAMEWORKS_DIR)",
 					"$(inherited)",
@@ -541,6 +542,7 @@
 		3DC8C64F18882AEB00B72460 /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				COMBINE_HIDPI_IMAGES = YES;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "lib/lib-Prefix.pch";
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -550,6 +552,7 @@
 		3DC8C65018882AEB00B72460 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				COMBINE_HIDPI_IMAGES = YES;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "lib/lib-Prefix.pch";
 				GCC_PREPROCESSOR_DEFINITIONS = (
