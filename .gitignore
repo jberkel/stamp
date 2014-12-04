@@ -1,6 +1,7 @@
 .idea/
- /xcuserdata/
+xcuserdata/
 target/
 stamp.wiki
 *.xcworkspace
 Pods/
+.DS_Store
