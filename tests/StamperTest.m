@@ -31,6 +31,13 @@
     XCTAssertFalse([self.subject addText:@"Testing abcdefghijklmno qrstuvxyzdsa 123456789"]);
 }
 
+- (void)testAddingMoreTestWhichCanFitReturnsTrueIfAllowEmpty
+{
+    self.subject.allowEmpty = YES;
+
+    XCTAssertTrue([self.subject addText:@"Testing abcdefghijklmno qrstuvxyzdsa 123456789"]);
+}
+
 - (void)testSaveToShouldReturnTrueIfFailedSavedSuccessfully
 {
     XCTAssertTrue([self.subject saveTo:self.target], @"saveTo should return");

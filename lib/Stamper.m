@@ -15,6 +15,7 @@
         _iconFile = file;
         _textShadow = [self defaultTextShadow];
         _textColor  = [NSColor whiteColor];
+        _allowEmpty = NO;
     }
     return self;
 }
@@ -56,7 +57,7 @@
         [self.image unlockFocus];
         return YES;
     } else {
-        return NO;
+        return self.allowEmpty;
     }
 }
 

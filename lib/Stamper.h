@@ -2,6 +2,7 @@
 
 @property (nonatomic, readwrite) NSColor  *textColor;
 @property (nonatomic, readwrite) NSShadow *textShadow;
+@property (nonatomic, readwrite) BOOL allowEmpty;
 
 - (instancetype)init __attribute__((unavailable("init not available ")));
 - (instancetype)initWithFile:(NSString *)file;
