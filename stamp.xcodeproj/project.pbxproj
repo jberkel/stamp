@@ -71,8 +71,9 @@
 		3DC8C63618882AEB00B72460 /* AppKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AppKit.framework; path = System/Library/Frameworks/AppKit.framework; sourceTree = SDKROOT; };
 		3DC8C63918882AEB00B72460 /* lib-Prefix.pch */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "lib-Prefix.pch"; sourceTree = "<group>"; };
 		3DC8C65C18882EA200B72460 /* CoreGraphics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreGraphics.framework; path = System/Library/Frameworks/CoreGraphics.framework; sourceTree = SDKROOT; };
+		98DD2EA52BD42DCE4C65434A /* Pods.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.release.xcconfig; path = "Pods/Target Support Files/Pods/Pods.release.xcconfig"; sourceTree = "<group>"; };
 		BA3E39D9D1CD4FFDBFEE8905 /* libPods.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libPods.a; sourceTree = BUILT_PRODUCTS_DIR; };
-		EF7124FFCF8F4D97BC50E052 /* Pods.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.xcconfig; path = Pods/Pods.xcconfig; sourceTree = "<group>"; };
+		DEB91419A6CE8BC902F425D3 /* Pods.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.debug.xcconfig; path = "Pods/Target Support Files/Pods/Pods.debug.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -116,7 +117,7 @@
 				19A1746FEA5F519D82AF44CE /* Products */,
 				19A17185927B2E4301D89DBA /* Frameworks */,
 				19A17173F5D08738F68883CD /* stamp */,
-				EF7124FFCF8F4D97BC50E052 /* Pods.xcconfig */,
+				B3CF7A8CB2AC701C743750DA /* Pods */,
 			);
 			sourceTree = "<group>";
 		};
@@ -206,6 +207,15 @@
 				3DC8C63918882AEB00B72460 /* lib-Prefix.pch */,
 			);
 			name = "Supporting Files";
+			sourceTree = "<group>";
+		};
+		B3CF7A8CB2AC701C743750DA /* Pods */ = {
+			isa = PBXGroup;
+			children = (
+				98DD2EA52BD42DCE4C65434A /* Pods.release.xcconfig */,
+				DEB91419A6CE8BC902F425D3 /* Pods.debug.xcconfig */,
+			);
+			name = Pods;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -349,7 +359,7 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "\"${SRCROOT}/Pods/Pods-resources.sh\"\n";
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods/Pods-resources.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
 /* End PBXShellScriptBuildPhase section */
@@ -445,7 +455,7 @@
 		};
 		19A17550FB55E07C68579B7B /* Debug */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = EF7124FFCF8F4D97BC50E052 /* Pods.xcconfig */;
+			baseConfigurationReference = DEB91419A6CE8BC902F425D3 /* Pods.debug.xcconfig */;
 			buildSettings = {
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "stamp/stamp-Prefix.pch";
@@ -486,7 +496,7 @@
 		};
 		19A17D9C999D4D8F11B189E4 /* Release */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = EF7124FFCF8F4D97BC50E052 /* Pods.xcconfig */;
+			baseConfigurationReference = 98DD2EA52BD42DCE4C65434A /* Pods.release.xcconfig */;
 			buildSettings = {
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "stamp/stamp-Prefix.pch";

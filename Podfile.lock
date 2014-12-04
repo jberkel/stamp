@@ -7,7 +7,7 @@ DEPENDENCIES:
   - HexColors (~> 2.2.1)
 
 SPEC CHECKSUMS:
-  BRLOptionParser: e034c1be1a1515e9b22e752eacb8edd9abb0df4d
-  HexColors: 3a68db077cd6572a8f7d4aa1add284dd2436a934
+  BRLOptionParser: 896de9a82696b19f7dbb012b3830f365c45dc599
+  HexColors: 01384d2bbe8dc4ffa43c3b4135db6e976952d153
 
-COCOAPODS: 0.29.0
+COCOAPODS: 0.35.0
