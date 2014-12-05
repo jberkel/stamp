@@ -10,6 +10,7 @@ int main(int argc, const char * argv[])
         NSString *input = nil, *output = nil, *text = nil;
         __block NSColor *textColor = nil, *shadowColor = nil;
         BOOL noShadow;
+        BOOL allowEmpty = NO;
 
         [parser setBanner:@"usage: %s", argv[0]];
         [parser addOption:"input"  flag:0 description:@"input png file"  argument:&input];
@@ -33,6 +34,7 @@ int main(int argc, const char * argv[])
             shadowColor = [NSColor colorWithHexString:color alpha:1];
         }];
         [parser addOption:"no-shadow" flag:0 description:@"disable text shadow" value:&noShadow];
+        [parser addOption:"allow-empty" flag:0 description:@"ignore errors if text is too long" value:&allowEmpty];
 
         NSError *error = nil;
 
@@ -58,6 +60,7 @@ int main(int argc, const char * argv[])
         if (noShadow) {
             stamper.textShadow = nil;
         }
+        stamper.allowEmpty = allowEmpty;
 
         if (![stamper addText:text]) {
             fprintf(stderr, "error: text too long\n");

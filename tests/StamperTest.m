@@ -3,6 +3,7 @@
 
 @interface StamperTest : XCTestCase
 @property Stamper *subject;
+@property NSString *initial;
 @property NSString *target;
 @end
 
@@ -11,8 +12,9 @@
 - (void)setUp
 {
     [super setUp];
-    self.subject = [[Stamper alloc] initWithFile:@"tests/icons/Icon.png"];
+    self.initial = @"tests/icons/Icon.png";
     self.target = [NSTemporaryDirectory() stringByAppendingPathComponent:@"icon.png"];
+    self.subject = [[Stamper alloc] initWithFile:self.initial];
 
     if ([[NSFileManager defaultManager] fileExistsAtPath:self.target]) {
         NSError *error;
@@ -31,6 +33,13 @@
     XCTAssertFalse([self.subject addText:@"Testing abcdefghijklmno qrstuvxyzdsa 123456789"]);
 }
 
+- (void)testAddingMoreTestWhichCanFitReturnsTrueIfAllowEmpty
+{
+    self.subject.allowEmpty = YES;
+
+    XCTAssertTrue([self.subject addText:@"Testing abcdefghijklmno qrstuvxyzdsa 123456789"]);
+}
+
 - (void)testSaveToShouldReturnTrueIfFailedSavedSuccessfully
 {
     XCTAssertTrue([self.subject saveTo:self.target], @"saveTo should return");
@@ -40,6 +49,16 @@
 {
     [self.subject saveTo:self.target];
     XCTAssertTrue([[NSFileManager defaultManager] fileExistsAtPath:self.target], @"file does not exist");
+}
+
+- (void)testSavedFileSHouldHaveTheRightSize
+{
+    [self.subject saveTo:self.target];
+
+    NSImage *initialImage = [[NSImage alloc] initWithData:[NSData dataWithContentsOfFile:self.initial]];
+    NSImage *targetImage = [[NSImage alloc] initWithData:[NSData dataWithContentsOfFile:self.target]];
+
+    XCTAssertTrue(NSEqualSizes(targetImage.size, initialImage.size));
 }
 
 @end
