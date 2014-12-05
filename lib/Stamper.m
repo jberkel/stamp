@@ -152,11 +152,29 @@
 
 - (NSBitmapImageRep *)bitmapRepresentation
 {
-    CGImageRef cgRef = [self.image CGImageForProposedRect:NULL
-                                                  context:nil
-                                                    hints:nil];
+    NSBitmapImageRep *bitmapImageRep = [[NSBitmapImageRep alloc] initWithBitmapDataPlanes:NULL
+                                                                               pixelsWide:(NSInteger)self.iconSize.width
+                                                                               pixelsHigh:(NSInteger)self.iconSize.height
+                                                                            bitsPerSample:8
+                                                                          samplesPerPixel:4
+                                                                                 hasAlpha:YES
+                                                                                 isPlanar:NO
+                                                                           colorSpaceName:NSDeviceRGBColorSpace
+                                                                              bytesPerRow:0
+                                                                             bitsPerPixel:0];
+    bitmapImageRep.size = self.iconSize;
 
-    return [[NSBitmapImageRep alloc] initWithCGImage:cgRef];
+    [NSGraphicsContext saveGraphicsState];
+    [NSGraphicsContext setCurrentContext:[NSGraphicsContext graphicsContextWithBitmapImageRep:bitmapImageRep]];
+
+    [self.image drawAtPoint:NSMakePoint(0, 0)
+                   fromRect:NSZeroRect
+                  operation:NSCompositeSourceOver
+                   fraction:1.0];
+
+    [NSGraphicsContext restoreGraphicsState];
+
+    return bitmapImageRep;
 }
 
 @end
