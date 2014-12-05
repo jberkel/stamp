@@ -3,11 +3,21 @@ PODS:
   - HexColors (2.2.1)
 
 DEPENDENCIES:
-  - BRLOptionParser (~> 0.3.0)
+  - BRLOptionParser (from `git@github.com:stephencelis/BRLOptionParser.git`, commit `65e29b0bcbd2c2022b0320126921e3e2f4eac830`)
   - HexColors (~> 2.2.1)
 
+EXTERNAL SOURCES:
+  BRLOptionParser:
+    :commit: 65e29b0bcbd2c2022b0320126921e3e2f4eac830
+    :git: git@github.com:stephencelis/BRLOptionParser.git
+
+CHECKOUT OPTIONS:
+  BRLOptionParser:
+    :commit: 65e29b0bcbd2c2022b0320126921e3e2f4eac830
+    :git: git@github.com:stephencelis/BRLOptionParser.git
+
 SPEC CHECKSUMS:
-  BRLOptionParser: 896de9a82696b19f7dbb012b3830f365c45dc599
+  BRLOptionParser: e034c1be1a1515e9b22e752eacb8edd9abb0df4d
   HexColors: 01384d2bbe8dc4ffa43c3b4135db6e976952d153
 
 COCOAPODS: 0.35.0
